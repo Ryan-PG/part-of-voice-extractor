@@ -15,6 +15,7 @@ This project provides a Python script to process labeled audio files by extracti
   - Extracted File Name
 - Filters segments based on duration (5 to 30 seconds).
 - Calculates the total duration of extracted segments and includes it in the CSV file.
+- **Processed files are renamed to avoid duplicate processing on subsequent runs.**
 
 ## Folder Structure
 
@@ -68,6 +69,10 @@ python extract_audio.py
 ### Extracting All Voices
 
 If you want to extract all voice segments regardless of length, simply comment out the if-statement in the script that filters segments based on duration.
+
+### Processed Files
+
+Once a file is processed successfully, its name will be changed to `<txt_file_name>_done.txt` to prevent reprocessing in future runs.
 
 ## Example of Label File
 

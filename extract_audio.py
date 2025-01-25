@@ -10,7 +10,7 @@ def extract_labeled_audio(labels_dir, voices_dir, output_dir):
     total_length_sum = 0
 
     for label_file in os.listdir(labels_dir):
-        if label_file.endswith(".txt"):
+        if label_file.endswith(".txt") and not label_file.endswith("_done.txt"):
             voice_file = label_file.replace(".txt", ".wav")
             label_path = os.path.join(labels_dir, label_file)
             voice_path = os.path.join(voices_dir, voice_file)
@@ -18,7 +18,7 @@ def extract_labeled_audio(labels_dir, voices_dir, output_dir):
             if not os.path.exists(voice_path):
                 print(f"Warning: Corresponding audio file not found for {label_file}")
                 continue
-
+            
             voice_output_dir = os.path.join(output_dir, os.path.splitext(voice_file)[0])
             if not os.path.exists(voice_output_dir):
                 os.makedirs(voice_output_dir)
@@ -39,13 +39,14 @@ def extract_labeled_audio(labels_dir, voices_dir, output_dir):
                             start_time, end_time, label = parts
                             start_time, end_time = float(start_time), float(end_time)
 
+                            
                             segment_length = end_time - start_time
                             if 5 <= segment_length <= 30:
                                 
                                 start_sample = int(start_time * sr)
                                 end_sample = int(end_time * sr)
                                 segment = audio[start_sample:end_sample]
-                                
+
                                 segment_filename = f"part{idx + 1}.wav"
                                 segment_path = os.path.join(voice_output_dir, segment_filename)
                                 sf.write(segment_path, segment, sr)
@@ -56,6 +57,9 @@ def extract_labeled_audio(labels_dir, voices_dir, output_dir):
                 
                 csv_writer.writerow(["Total", "", length_sum, "", ""])
                 total_length_sum += length_sum
+
+            done_label_path = os.path.join(labels_dir, label_file.replace(".txt", "_done.txt"))
+            os.rename(label_path, done_label_path)
 
     print(f"Total length of all extracted segments: {total_length_sum} seconds")
 
