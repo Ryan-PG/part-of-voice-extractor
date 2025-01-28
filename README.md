@@ -6,7 +6,7 @@ This project provides a Python script to process labeled audio files by extracti
 
 - Reads label files containing timestamps and associated text labels.
 - Extracts audio segments based on provided start and end times.
-- Saves each extracted segment as a separate `.wav` file.
+- Saves each extracted segment as a separate `.wav`/`.mp3` file.
 - Generates a CSV file containing segment information:
   - Start Time
   - End Time
@@ -51,7 +51,7 @@ Ensure you have the following dependencies installed:
 You can install the required dependencies using:
 
 ```bash
-pip install librosa soundfile
+pip install -r requirements.txt
 ```
 
 ## Usage
@@ -63,6 +63,8 @@ pip install librosa soundfile
 ```bash
 python extract_audio.py
 ```
+
+\*\* Consider that every `txt` file name in Labels directory must be the same of a `.wav`/`.mp3` file name in Voices directory.
 
 4. The extracted segments and CSV files will be saved in the `Extracted_Voices` directory.
 
