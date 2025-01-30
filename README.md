@@ -13,7 +13,7 @@ This project provides a Python script to process labeled audio files by extracti
   - Length (in seconds)
   - Label
   - Extracted File Name
-- Filters segments based on duration (5 to 30 seconds).
+- Filters segments based on duration (3+ seconds).
 - Calculates the total duration of extracted segments and includes it in the CSV file.
 - **Processed files are renamed to avoid duplicate processing on subsequent runs.**
 

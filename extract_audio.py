@@ -46,17 +46,18 @@ def extract_labeled_audio(labels_dir, voices_dir, output_dir):
 
               segment_length = end_time - start_time
 
-              start_sample = int(start_time * sr)
-              end_sample = int(end_time * sr)
-              segment = audio[start_sample:end_sample]
+              if segment_length >= 3:
+                start_sample = int(start_time * sr)
+                end_sample = int(end_time * sr)
+                segment = audio[start_sample:end_sample]
 
-              segment_filename = f"part{idx + 1}.{file_type}"
-              segment_path = os.path.join(voice_output_dir, segment_filename)
-              sf.write(segment_path, segment, sr)
+                segment_filename = f"part{idx + 1}.{file_type}"
+                segment_path = os.path.join(voice_output_dir, segment_filename)
+                sf.write(segment_path, segment, sr)
 
-              csv_writer.writerow([start_time, end_time, segment_length, label, segment_filename])
-              length_sum += segment_length
-              print(f"Extracted segment saved: {segment_path}")
+                csv_writer.writerow([start_time, end_time, segment_length, label, segment_filename])
+                length_sum += segment_length
+                print(f"Extracted segment saved: {segment_path}")
 
         csv_writer.writerow(["Total", "", length_sum, "", ""])
         total_length_sum += length_sum
