@@ -21,7 +21,8 @@ def get_total_duration(directory):
     return total_duration
 
 def main():
-    parent_directory = input("Enter the parent directory: ").strip()
+    # parent_directory = input("Enter the parent directory: ").strip()
+    parent_directory = "Calculate"
     
     if not os.path.isdir(parent_directory):
         print(f"Invalid directory: {parent_directory}")

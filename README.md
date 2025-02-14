@@ -54,7 +54,7 @@ You can install the required dependencies using:
 pip install -r requirements.txt
 ```
 
-## Usage
+## Extractor Usage
 
 1. Place your labeled text files inside the `Labels` directory.
 2. Place your corresponding audio files inside the `Voices` directory.
@@ -67,6 +67,17 @@ python extract_audio.py
 \*\* Consider that every `txt` file name in Labels directory must be the same of a `.wav`/`.mp3` file name in Voices directory.
 
 4. The extracted segments and CSV files will be saved in the `Extracted_Voices` directory.
+
+## Calculator Usage
+
+For calculating the amount of extracted voices in seconds, follow these steps:
+
+1. Place your extracted voices directories inside the `calculate` directory.
+2. Run the script to extract audio segments:
+
+```bash
+python wav_files_duration_calculator.py
+```
 
 ### Extracting All Voices
 
