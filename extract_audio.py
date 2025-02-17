@@ -4,10 +4,11 @@ import soundfile as sf
 import csv
 
 def extract_labeled_audio(labels_dir, voices_dir, output_dir):
-  file_type = input("Enter the file type ('mp3' or 'wav'): ").strip().lower()
+  file_type = input("Enter the file type ('mp3' or 'wav'): (default = wav) ").strip().lower()
   if file_type not in ['mp3', 'wav']:
-    print("Invalid file type selected. Exiting.")
-    return
+    # print("Invalid file type selected. Exiting.")
+    file_type = 'wav'
+    # return
 
   if not os.path.exists(output_dir):
     os.makedirs(output_dir)
