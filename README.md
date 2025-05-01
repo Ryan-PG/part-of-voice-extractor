@@ -121,30 +121,24 @@ Total,,7.521036,,
 
 ---
 
-## Label-Only CSV Generator (`just_label_audio_tracks.py`)
-
-This optional utility helps you generate a CSV file from a single label file without cutting audio segments. It’s useful for preparing metadata or analyzing transcript timing without processing audio.
-
-### Features
-
-- Accepts a single label file from the `Labels` directory.
-- Scans and orders all matching audio files (e.g., `.wav`, `.mp3`, or `.m4a`) from the `Voices` directory.
-- Outputs a CSV file containing:
-  - Start Time
-  - End Time
-  - Duration (in seconds)
-  - Label (transcription text)
-
-### Usage
-
-```bash
-python just_label_audio_tracks.py
-```
+## Considerations
 
 1. Make sure there's **only one** label file (`.txt`) in the `Labels` directory.
 2. Ensure your audio files are placed in the `Voices` directory.
 3. When prompted, enter the file type (`wav`, `mp3`, or `m4a`). Default is `wav`.
 4. The output CSV will be saved in a newly created folder inside the specified output directory.
+
+---
+
+## Extra Codes (`extra_codes.ipynb`)
+
+This optional utility have some extra codes that helps you have some other functionalities that you may need. Just for organizing files. 
+
+### Features
+
+- File Renaming
+- Missed Numbers in Voice Files
+- Shift Numbers in File Names
 
 ---
 
