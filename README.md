@@ -139,6 +139,7 @@ This optional utility have some extra codes that helps you have some other funct
 - File Renaming
 - Missed Numbers in Voice Files
 - Shift Numbers in File Names
+- Remove All Empty Lines
 
 ---
 
