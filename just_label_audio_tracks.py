@@ -5,8 +5,16 @@ import csv
 import re
 
 def extract_number(filename):
-    match = re.search(r'\d+', filename)
-    return int(match.group()) if match else float('inf')  # Put non-numbered files at the end
+    match = re.search(r'(\d+)\.(\d+)', filename)
+    if match:
+        major = int(match.group(1))
+        minor = int(match.group(2))
+        return (major, minor)
+    else:
+        # fallback if no major.minor pattern, use first number or push to end
+        match = re.search(r'(\d+)', filename)
+        return (int(match.group(1)), 0) if match else (float('inf'), float('inf'))
+
 
 def get_audio_length(file_path):
     try:
@@ -17,9 +25,9 @@ def get_audio_length(file_path):
         return 0.0
 
 def build_csv_from_labels(labels_dir, voices_dir, output_dir):
-    file_type = input("Enter the file type ('mp3' or 'wav' or 'm4a'): (default = m4a) ").strip().lower()
+    file_type = input("Enter the file type ('mp3' or 'wav' or 'm4a'): (default = mp3) ").strip().lower()
     if file_type not in ['mp3', 'wav', 'm4a']:
-        file_type = 'm4a'
+        file_type = 'mp3'
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -69,7 +77,7 @@ def build_csv_from_labels(labels_dir, voices_dir, output_dir):
             csv_writer.writerow([length, label, audio_file])
             print(f"Mapped label '{label}' to audio file '{audio_file}' with length {length} seconds")
 
-    # Rename label file to mark as done
+    #! Rename label file to mark as done
     done_label_path = os.path.join(labels_dir, label_file.replace(".txt", "_done.txt"))
     os.rename(label_path, done_label_path)
 
