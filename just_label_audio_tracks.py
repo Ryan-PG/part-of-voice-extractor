@@ -5,15 +5,20 @@ import csv
 import re
 
 def extract_number(filename):
-    match = re.search(r'(\d+)\.(\d+)', filename)
-    if match:
-        major = int(match.group(1))
-        minor = int(match.group(2))
-        return (major, minor)
-    else:
-        # fallback if no major.minor pattern, use first number or push to end
-        match = re.search(r'(\d+)', filename)
-        return (int(match.group(1)), 0) if match else (float('inf'), float('inf'))
+    # Voice (1).mp3, Voice (2).mp3, etc.
+    match = re.search(r'\((\d+)\)', filename)
+    return int(match.group(1)) if match else float('inf')
+
+    # 1.mp3, 2.mp3, etc.
+    # match = re.search(r'(\d+)\.(\d+)', filename)
+    # if match:
+    #     major = int(match.group(1))
+    #     minor = int(match.group(2))
+    #     return (major, minor)
+    # else:
+    #     # fallback if no major.minor pattern, use first number or push to end
+    #     match = re.search(r'(\d+)', filename)
+    #     return (int(match.group(1)), 0) if match else (float('inf'), float('inf'))
 
 
 def get_audio_length(file_path):
@@ -28,6 +33,8 @@ def build_csv_from_labels(labels_dir, voices_dir, output_dir):
     file_type = input("Enter the file type ('mp3' or 'wav' or 'm4a'): (default = mp3) ").strip().lower()
     if file_type not in ['mp3', 'wav', 'm4a']:
         file_type = 'mp3'
+
+    # file_type = 'mp3'
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -74,6 +81,7 @@ def build_csv_from_labels(labels_dir, voices_dir, output_dir):
             audio_path = os.path.join(voices_dir, audio_file)
             length = get_audio_length(audio_path)
 
+            # csv_writer.writerow([0, label, audio_file])
             csv_writer.writerow([length, label, audio_file])
             print(f"Mapped label '{label}' to audio file '{audio_file}' with length {length} seconds")
 
